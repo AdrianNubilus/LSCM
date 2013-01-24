@@ -12,4 +12,5 @@ VK.Widgets.Group("vk_groups", {mode: 0, width: "240", height: "430"}, 42246254);
 </script>
 {/literal}
 </div>
+
 </aside>
