@@ -1,0 +1,50 @@
+{include file='topic_part_header.tpl'}
+
+
+<!--<script type="text/javascript" src="{cfg name='path.root.engine_lib'}/external/prettyPhoto/js/prettyPhoto.js"></script>  	
+	<link rel='stylesheet' type='text/css' href="{cfg name='path.root.engine_lib'}/external/prettyPhoto/css/prettyPhoto.css" /> -->
+	<script type="text/javascript" src="http://strannik.by/templates/skin/synio/js/lightbox.js"></script>	
+	<link rel="stylesheet" type="text/css" href="http://strannik.by/templates/skin/synio/css/lightbox.css"/>
+<!--	<script type="text/javascript">
+		jQuery(document).ready(function($) {	
+			$('.photoset-image').prettyPhoto({
+				social_tools:'',
+				show_title: false,
+				slideshow:false,
+				deeplinking: false
+			});
+		});
+	</script>-->
+    <script type="text/javascript">
+$(function() {
+	$('#gallery a').lightBox();
+});
+    </script>	   
+   
+<div class="topic-content text">
+	{hook run='topic_content_begin' topic=$oTopic bTopicList=$bTopicList}
+	
+	{if $bTopicList}
+		{$oTopic->getTextShort()}
+		
+		{if $oTopic->getTextShort()!=$oTopic->getText()}
+			<br/>
+			<a href="{$oTopic->getUrl()}#cut" title="{$aLang.topic_read_more}">
+				{if $oTopic->getCutText()}
+					{$oTopic->getCutText()}
+				{else}
+					{$aLang.topic_read_more} &rarr;
+				{/if}
+			</a>
+		{/if}
+	{else}
+<!--	<div id="gallery" > -->
+		{$oTopic->getText()}
+<!--	</div> -->
+	{/if}
+	
+	{hook run='topic_content_end' topic=$oTopic bTopicList=$bTopicList}
+</div> 
+
+
+{include file='topic_part_footer.tpl'}
