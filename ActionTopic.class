@@ -1,6 +1,6 @@
 <?php
 /*-------------------------------------------------------
-*
+*	/classes/actions/ActionTopic.class
 *   LiveStreet Engine Social Networking
 *   Copyright © 2008 Mzhelskiy Maxim
 *
@@ -137,6 +137,7 @@ class ActionTopic extends Action {
 			 * Только перед отправкой формы!
 			 */
 			$_REQUEST['topic_title']=$oTopic->getTitle();
+			$_REQUEST['coodrinati']=$oTopic->getCoodrinati();
 			$_REQUEST['topic_text']=$oTopic->getTextSource();
 			$_REQUEST['topic_tags']=$oTopic->getTags();
 			$_REQUEST['blog_id']=$oTopic->getBlogId();
@@ -242,6 +243,7 @@ class ActionTopic extends Action {
 		$oTopic->setBlogId(getRequestStr('blog_id'));
 		$oTopic->setTitle(strip_tags(getRequestStr('topic_title')));
 		$oTopic->setTextSource(getRequestStr('topic_text'));
+		$oTopic->setCoodrinati(getRequestStr('coodrinati'));
 		$oTopic->setTags(getRequestStr('topic_tags'));
 		$oTopic->setUserId($this->oUserCurrent->getId());
 		$oTopic->setType('topic');
@@ -376,6 +378,7 @@ class ActionTopic extends Action {
 		$oTopic->setBlogId(getRequestStr('blog_id'));
 		$oTopic->setTitle(strip_tags(getRequestStr('topic_title')));
 		$oTopic->setTextSource(getRequestStr('topic_text'));
+		$oTopic->setCoodrinati(getRequestStr('coodrinati'));
 		$oTopic->setTags(getRequestStr('topic_tags'));
 		$oTopic->setUserIp(func_getIp());
 		/**
