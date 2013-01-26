@@ -33,7 +33,8 @@ class ModuleTopic_MapperTopic extends Mapper {
 			(blog_id,
 			user_id,
 			topic_type,
-			topic_title,			
+			topic_title,
+			coodrinati,				
 			topic_tags,
 			topic_date_add,
 			topic_user_ip,
@@ -44,10 +45,9 @@ class ModuleTopic_MapperTopic extends Mapper {
 			topic_forbid_comment,			
 			topic_text_hash			
 			)
-			VALUES(?d,  ?d,	?,	?,	?,  ?, ?, ?d, ?d, ?d, ?, ?, ?)
+			VALUES(?d,  ?d,	?,	?,	?,  ?, ?, ?d, ?d, ?d, ?, ?, ?d, ?)
 		";
-		if ($iId=$this->oDb->query($sql,$oTopic->getBlogId(),$oTopic->getUserId(),$oTopic->getType(),$oTopic->getTitle(),
-								   $oTopic->getTags(),$oTopic->getDateAdd(),$oTopic->getUserIp(),$oTopic->getPublish(),$oTopic->getPublishDraft(),$oTopic->getPublishIndex(),$oTopic->getCutText(),$oTopic->getForbidComment(),$oTopic->getTextHash()))
+		if ($iId=$this->oDb->query($sql,$oTopic->getBlogId(),$oTopic->getUserId(),$oTopic->getType(),$oTopic->getTitle(),$oTopic->getCoodrinati(),$oTopic->getTags(),$oTopic->getDateAdd(),$oTopic->getUserIp(),$oTopic->getPublish(),$oTopic->getPublishDraft(),$oTopic->getPublishIndex(),$oTopic->getCutText(),$oTopic->getForbidComment(),$oTopic->getTextHash()))
 		{
 			$oTopic->setId($iId);
 			$this->AddTopicContent($oTopic);
@@ -475,6 +475,7 @@ class ModuleTopic_MapperTopic extends Mapper {
 			SET 
 				blog_id= ?d,
 				topic_title= ?,				
+				coodrinati = ?,	
 				topic_tags= ?,
 				topic_date_add = ?,
 				topic_date_edit = ?,
@@ -496,7 +497,7 @@ class ModuleTopic_MapperTopic extends Mapper {
 			WHERE
 				topic_id = ?d
 		";
-		if ($this->oDb->query($sql,$oTopic->getBlogId(),$oTopic->getTitle(),$oTopic->getTags(),$oTopic->getDateAdd(),$oTopic->getDateEdit(),$oTopic->getUserIp(),$oTopic->getPublish(),$oTopic->getPublishDraft(),$oTopic->getPublishIndex(),$oTopic->getRating(),$oTopic->getCountVote(),$oTopic->getCountVoteUp(),$oTopic->getCountVoteDown(),$oTopic->getCountVoteAbstain(),$oTopic->getCountRead(),$oTopic->getCountComment(),$oTopic->getCountFavourite(),$oTopic->getCutText(),$oTopic->getForbidComment(),$oTopic->getTextHash(),$oTopic->getId())) {
+		if ($this->oDb->query($sql,$oTopic->getBlogId(),$oTopic->getTitle(),$oTopic->getCoodrinati(),$oTopic->getTags(),$oTopic->getDateAdd(),$oTopic->getDateEdit(),$oTopic->getUserIp(),$oTopic->getPublish(),$oTopic->getPublishDraft(),$oTopic->getPublishIndex(),$oTopic->getRating(),$oTopic->getCountVote(),$oTopic->getCountVoteUp(),$oTopic->getCountVoteDown(),$oTopic->getCountVoteAbstain(),$oTopic->getCountRead(),$oTopic->getCountComment(),$oTopic->getCountFavourite(),$oTopic->getCutText(),$oTopic->getForbidComment(),$oTopic->getTextHash(),$oTopic->getId())) {
 			$this->UpdateTopicContent($oTopic);
 			return true;
 		}
