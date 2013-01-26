@@ -164,6 +164,14 @@ class ModuleTopic_EntityTopic extends Entity {
 	public function getExtra() {
 		return $this->_getDataOne('topic_extra') ? $this->_getDataOne('topic_extra') : serialize('');
 	}
+
+	/** Возвращает строку со списком координат
+	 *
+	 * @return string|null
+	 */
+	public function getCoodrinati() {
+     	   return $this->_aData['coodrinati'];
+	}	
 	/**
 	 * Возвращает строку со списком тегов через запятую
 	 *
@@ -795,6 +803,13 @@ class ModuleTopic_EntityTopic extends Entity {
 	public function setTextShort($data) {
 		$this->_aData['topic_text_short']=$data;
 	}
+	/**
+	 * Устаналивает координаты
+	 *
+	 */	
+	public function setCoodrinati($data) {
+     	   $this->_aData['coodrinati']=$data;
+	}	
 	/**
 	 * Устаналивает исходный текст топика
 	 *
