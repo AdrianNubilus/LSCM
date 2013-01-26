@@ -16,7 +16,7 @@
 
 				<th class="cell-readers cell-tab">
 					<div class="cell-tab-inner {if $sBlogOrder=='blog_count_user'}active{/if}">
-					<a href="{$sBlogsRootPage}?order=blog_count_user&order_way={if $sBlogOrder=='blog_count_user'}{$sBlogOrderWayNext}{else}{$sBlogOrderWay}{/if}" {if $sBlogOrder=='blog_count_user'}class="{$sBlogOrderWay}"{/if} rel="nofollow"><span>{$aLang.blogs_readers}</span></a>				
+										<a href="{$sBlogsRootPage}?order=blog_count_user&order_way={if $sBlogOrder=='blog_count_user'}{$sBlogOrderWayNext}{else}{$sBlogOrderWay}{/if}" {if $sBlogOrder=='blog_count_user'}class="{$sBlogOrderWay}"{/if} rel="nofollow"><span>Количество постов</span></a>
 					</div>
 				</th>
 				<th class="cell-rating cell-tab align-center">
@@ -84,7 +84,7 @@
 						</td>
 					{/if}
 
-					<td class="cell-readers" id="blog_user_count_{$oBlog->getId()}">{$oBlog->getCountUser()}</td>
+					<td class="cell-readers" id="blog_user_count_{$oBlog->getId()}">{$oBlog->getCountTopic()}</td>
 					<td class="cell-rating align-center {if $oBlog->getRating() < 0}negative{/if}">{$oBlog->getRating()}</td>
 				</tr>
 			{/foreach}
