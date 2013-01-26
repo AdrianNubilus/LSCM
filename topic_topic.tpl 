@@ -40,6 +40,40 @@ $(function() {
 	{else}
 <!--	<div id="gallery" > -->
 		{$oTopic->getText()}
+		<br/>
+<!-- maps -->
+		{if $oTopic->getCoodrinati()!=null}
+		<br/><br/>
+		<b>Местоположение на карте:</b><br/>
+		<i>- для большей детализации можете переключить вид с карты на спутник</i><br/>
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+		<script type="text/javascript">
+		 	var map;
+			$(document).ready(function(){
+				initialize();
+			});			
+			function initialize() {
+				vallmappa = '{$oTopic->getCoodrinati()}';
+				perr = vallmappa.split(',');
+				var latlng = new google.maps.LatLng(perr[0],perr[1]);
+				var myOptions = {
+					zoom: 15,
+					center: latlng,
+					mapTypeId: google.maps.MapTypeId.ROADMAP,  
+					mapTypeControlOptions: {  
+						style: google.maps.MapTypeControlStyle.DROPDOWN_MENU  
+					}  
+				};		
+				map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);			
+				myLatlng = new google.maps.LatLng(perr[0],perr[1]);
+				marker = new google.maps.Marker({
+					position: myLatlng,
+					map: map
+				});										
+			}
+		</script>		
+		<div id="map_canvas" style=" float: left; width:100%; height:300px"></div>
+		{/if}
 <!--	</div> -->
 	{/if}
 	
