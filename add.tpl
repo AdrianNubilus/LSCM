@@ -71,8 +71,93 @@
 	<input type="hidden" name="topic_type" value="topic" />
 	
 	{hook run='form_add_topic_topic_end'}
+<!-- map -->	
+<script>
+	var vallmappa = '{$_aRequest.coodrinati}';
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+{literal}
+	<script type="text/javascript">
+		var marker;
+		var map;
+		var markers = [];	
+		var geocoder;
+  
+		$(document).ready(function(){
+			initialize();
+		});	
+		function initialize() {
+			geocoder = new google.maps.Geocoder();
+			var latlng = new google.maps.LatLng(53.902315, 27.561758);
+			var myOptions = {
+				zoom: 12,
+				center: latlng,
+				mapTypeId: google.maps.MapTypeId.ROADMAP,  
+				mapTypeControlOptions: {  
+					style: google.maps.MapTypeControlStyle.DROPDOWN_MENU  
+				}  
+			};		
+			map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+			google.maps.event.addListener(map, 'click', function(event) {
+				setAllMap(null);
+				addMarker(event.latLng);
+			});
+			if (vallmappa !='') {
+				perr = vallmappa.split(',');
+				myLatlng = new google.maps.LatLng(perr[0],perr[1]);
+				setAllMap(null);
+				addMarker(myLatlng);
+			}						 
+			
+		}
+		function getAttributeByIndex(obj, index){
+			var i = 0;
+			for (var attr in obj){
+				if (index === i){
+					return obj[attr];
+				}
+				i++;
+			}
+			return null;
+		}
+		function setAllMap(map) {
+			for (var i = 0; i < markers.length; i++) {
+				  markers[i].setMap(map);
+			}
+		}					  
+		function addMarker(location) {
+			marker = new google.maps.Marker({
+				  position: location,
+				  map: map
+			});
+			$('#coodrinati').val(getAttributeByIndex(location,0)+','+getAttributeByIndex(location,1));
+			markers.push(marker);
+
+		}				
+		function codeAddress() {
+			var address = document.getElementById('address').value;
+			geocoder.geocode( { 'address': address}, function(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					map.setCenter(results[0].geometry.location);
+					setAllMap(null);
+					addMarker(results[0].geometry.location);				
+				} else {
+					alert('Geocode was not successful for the following reason: ' + status);
+				}
+			});
+		}			
+	</script>
+{/literal}	
+<p><label for="topic_tags">1. Введите адрес и нажмите найти:</label>
+    <input id="address" type="textbox" class="input-text" value="" style="width: 520px;"/>
+    <input type="button" onclick="codeAddress()" class="button" value="Найти"/>
+</p>
 	
-	
+	<label for="topic_tags">2. Отметьте точное место на карте:</label>
+	<i>для большей детализации можете переключить вид с карты на спутник</i><br/><br/>
+	<div id="map_canvas" style="width: 600px; height: 300px;margin-bottom: 10px;"></div>
+	<input type="hidden" name="coodrinati" value="{$_aRequest.coodrinati}" id="coodrinati">
+<!-- end map -->
 	<button type="submit"  name="submit_topic_publish" id="submit_topic_publish" class="button button-primary fl-r">{$aLang.topic_create_submit_publish}</button>
 	<button type="submit"  name="submit_preview" onclick="ls.topic.preview('form-topic-add','text_preview'); return false;" class="button">{$aLang.topic_create_submit_preview}</button>
 	<button type="submit"  name="submit_topic_save" id="submit_topic_save" class="button">{$aLang.topic_create_submit_save}</button>
